@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/db.config');
+const bodyParser = require('body-parser');
+var cors = require('cors');
 
 const auth = require('./middleware/auth');
 const errors = require('./middleware/errors');
@@ -8,6 +10,11 @@ const errors = require('./middleware/errors');
 const unless = require('express-unless');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.use(cors())
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db,{
